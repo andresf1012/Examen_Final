@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import csv
 
 
+
 def registro_produccion():
 
     ventana_registro = tk.Toplevel(ventana)
@@ -36,16 +37,22 @@ def registro_produccion():
             if not (0 <= pan_frances <= 500 and 0 <= pan_queso <= 500 and 0 <= croissant <= 500):
                 messagebox.showerror("Error", "Las cantidades deben estar entre 0 y 500.")
                 return
+            
             comple_pan_frances = random.uniform(1.0, 1.5)
             comple_pan_queso = random.uniform(1.0, 1.5)
             comple_croissant = random.uniform(1.0, 1.5)
+
+
             numerador = (pan_frances * comple_pan_frances + pan_queso * comple_pan_queso + croissant * comple_croissant)
             denominador = (comple_pan_frances + comple_pan_queso + comple_croissant)
             eficiencia = round(numerador / denominador)
+
             estado = "cumple" if eficiencia >= 300 else "no cumple"
+
             with open("panes.csv", "a", newline="") as archivo:
                 escritor = csv.writer(archivo)
                 escritor.writerow([nombre, pan_frances, pan_queso, croissant, eficiencia, estado])
+                
             messagebox.showinfo("Éxito", f"Producción registrada.\nEficiencia: {eficiencia}\nEstado: {estado}")
             ventana_registro.destroy()
 
@@ -196,3 +203,4 @@ boton_salir.pack(pady=10)
 
 
 ventana.mainloop()
+
